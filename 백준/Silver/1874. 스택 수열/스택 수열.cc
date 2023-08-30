@@ -39,6 +39,6 @@ int main() {
 		v.push_back('-');
 	}
 	for(int i=0; i<v.size();i++) cout << v[i] << '\n';
-	//cout << '\n';
+	cout << '\n';
 	return 0;
 }
