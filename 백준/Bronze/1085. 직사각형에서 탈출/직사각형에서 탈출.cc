@@ -43,7 +43,7 @@ int main() {
 	du = h-y;
 	dd = y;
 
-	cout << min(min(min(dl, dr), du), dd);
+	cout << min({dl,dr,du,dd});
 
 	cout << '\n';
 	return 0;
