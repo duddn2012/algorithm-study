@@ -1,61 +1,90 @@
-#include<iostream>
-#include<algorithm>
+#include<string>
+#include <iostream>
+#include<sstream>
 #include<vector>
 #include<queue>
+#include<algorithm>
+#include<regex>
+#include<time.h>
+#include<cmath>
+#include<math.h>
+#include <list>
+#include <stack>
+#define _CRT_SECURE_NO_WARNINGS
+#define FIO cin.tie(0); cout.tie(0); ios::sync_with_stdio(0);
+#define MAX 205
+typedef unsigned long long int ll;
 using namespace std;
 
-int N, M, x;
-int city[201][201];
-bool visit[201];
-bool flag;
-vector<int> check_list;
-queue<int> q;
+/**
+* [1976] 여행 가자
+* 유니온 파인드로도 해결 가능하지만
+* 완전 탐색(dfs/bfs)으로도 해결 가능하기에
+* bfs로 풀이를 시도해봤으나 메모리 초과가 발생하였다.
+* dfs는 queue를 사용하지 않아서 메모리 초과가 발생하지 않을까?
+* 
+* [생각해볼 문제]
+* 1. find 시 부모 노드를 바꿔줘야 한다.
+*
+* [반례]
+* 1. 
+*/
 
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+vector<vector<int>> g;
+vector<int> travel;
+bool visited[MAX];
 
-    cin >> N >> M;
+void dfs(int x) {
+	visited[x] = true;
+	for (int i = 0; i < g[x].size(); i++) {
+		int adj = g[x][i];
+		if (!visited[adj]) {
+			dfs(adj);
+		}
+	}
+}
 
-    for (int i = 1; i <= N; i++)
-        for (int j = 1; j <= N; j++)
-            cin >> city[i][j];
+bool validate() {
+	bool flag = true;
+	for (int i = 0; i < travel.size(); i++) {
+		if (!visited[travel[i]]) {
+			flag = false; 
+			break;
+		}
+	}
+	return flag;
+}
 
-    for (int i = 1; i <= M; i++)
-    {
-        cin >> x;
-        check_list.push_back(x);
-    }
+int main() {
+	FIO; 
 
-    q.push(check_list[0]);
+	int n, m;
+	
+	cin >> n >> m;
 
-    while (!q.empty())
-    {
-        int now = q.front();
-        q.pop();
+	g.resize(n + 1);
 
-        visit[now] = true;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			int tmp;
+			cin >> tmp;
+			if (tmp) {
+				g[i].push_back(j);
+			}
+		}
+	}
 
-        for (int i = 1; i <= N; i++)
-        {
-            // 갈수있고 방문한적이없는 도시라면
-            if (city[now][i] == 1 && !visit[i])
-                q.push(i);
-        }
+	for (int i = 0; i < m; i++) {
+		int tmp;
+		cin >> tmp;
+		travel.push_back(tmp);
+	}
 
-    }
+	dfs(travel[0]);
 
-    flag = true;
+	if (validate())  cout << "YES" << "\n"; 
+	else cout << "NO" << "\n";	
 
-    for (int i = 0; i < check_list.size(); i++)
-    {
-        if (!visit[check_list[i]])
-        {
-            flag = false;
-            break;
-        }
-    }
-
-    cout << (flag ? "YES" : "NO");
+	cout << '\n';
+	return 0;
 }
