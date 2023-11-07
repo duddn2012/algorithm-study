@@ -29,7 +29,8 @@ int main() {
 
     //setM(중복 가능)을 정렬하고 첫 자신의 medalStatus가 나올때 수 cout
     sort(v.begin(), v.end());
-    for (int i = 1; i <= v.size(); i++) {
+    reverse(v.begin(), v.end());
+    for (int i = 0; i < v.size(); i++) {
         pair<medalStatus, int> data = v[i];
         if (data.first == answer) {
             cout << i+1;
