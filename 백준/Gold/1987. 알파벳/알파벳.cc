@@ -13,7 +13,7 @@ vector<vector<int>> squreVistied;
 vector<int> visited;
 
 int r, c;
-int result=0;
+int result = 1;
 int dx[] = { 0,1,0,-1 };
 int dy[] = { 1,0,-1,0 };
 
@@ -29,8 +29,8 @@ void dfs(int ir, int ic, int cnt) {
 
         if (nx >= 0 && ny >= 0 && nx < r && ny < c) {
             visited[alphaPoint]++;
-            result = max(result, cnt+1);
-            dfs(nx, ny, cnt+1);
+            result = max(result, cnt + 1);
+            dfs(nx, ny, cnt + 1);
             visited[alphaPoint]--;
         }
     }
