@@ -8,40 +8,26 @@
 #include <map>
 using namespace std;
 
-typedef map<string, int>::iterator ITER;
-
 bool cmp(pair< string, int> a, pair< string, int> b) {
-	if (a.second == b.second) {
-		if (a.first.length() == b.first.length()) return a.first < b.first;
-		return a.first.length() > b.first.length();
-	}
-	return a.second > b.second;
+	if (a.second != b.second) return a.second > b.second;
+	else if (a.first.length() != b.first.length()) return a.first.length() > b.first.length();
+	else return a.first < b.first;
 }
 
-map<string, int> book;
-vector<pair<string, int>> result;
-
 int main() {
+	map<string, int> book;	
 	int n, m;
+
 	cin >> n >> m;
 
 	for (int i = 0; i < n; i++) {
 		string str;
 		cin >> str;
 		if (str.length() < m) continue;
-		auto item = book.find(str);
-		if (item != book.end()) {
-			book[str]+=1;
-		}
-		else {
-			book[str] = 0;
-		}
+		book[str]++;	
 	}
 
-	for (ITER iter = book.begin(); iter != book.end(); iter++) {
-		result.push_back({ iter->first,iter->second });
-	}
-
+	vector<pair<string, int>> result(book.begin(), book.end());
 	sort(result.begin(), result.end(), cmp);
 
 	for (auto it : result) {
