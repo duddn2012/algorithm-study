@@ -1,31 +1,40 @@
 #include <iostream>
+#include <string>
 #include <vector>
-#include <math.h>
-#include<string>
-#include <queue>
-#include <algorithm>
 using namespace std;
 
+int N,M;
 vector<int> v;
-int n, m;
 
-int a, b, c;
+bool solve(int h){
+    if(v[0]-h > 0) return false;
+    if(v[v.size()-1]+h < N) return false;
+    for(int i=0;i<v.size()-1;i++)
+        if(v[i]+h < v[i+1]-h) return false;
+    return true;
+}
 
-int main() {
-	cin >> n >> m;
-	v.resize(m);
-	for (int i = 0; i < m; i++) {		
-		cin >> v[i];
-				
-		if (i == 0) {
-			a = v[i];
-			if (i == m - 1) c = n - v[i];
-		}
-		else b = max(b, int(ceil(float(v[i] - v[i - 1]) / 2)));
-		if (i == m - 1) c = n - v[i];
-	}
+int main(void) {
+    ios_base ::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> N>>M;
+    v = vector<int>();
+    for(int i=0;i<M;i++){
+        int x;
+        cin>>x;
+        v.push_back(x);
+    }
+    
+    int l=0,r=N+1;
+    while(l!=r){
+        int mid = l+(r-l)/2;
+        if(solve(mid))
+        r = mid;
+        else 
+        l = mid+1;
+    }
 
-	cout << max(a, max(b, c));
-
-	return 0;
+    cout << l << "\n";
+    return 0;
 }
