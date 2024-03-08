@@ -1,10 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <math.h>
 #include<string>
-#include <queue>
 #include <algorithm>
-#include <climits>
 #include <map>
 using namespace std;
 
