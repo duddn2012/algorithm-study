@@ -5,7 +5,7 @@
 #include <map>
 using namespace std;
 
-bool cmp(pair< string, int> a, pair< string, int> b) {
+bool cmp(pair< string, int> const& a, pair< string, int> const& b) {
 	if (a.second != b.second) return a.second > b.second;
 	else if (a.first.length() != b.first.length()) return a.first.length() > b.first.length();
 	else return a.first < b.first;
@@ -27,7 +27,7 @@ int main() {
 	vector<pair<string, int>> result(book.begin(), book.end());
 	sort(result.begin(), result.end(), cmp);
 
-	for (auto it : result) {
+	for (auto& it : result) {
 		cout << it.first << '\n';
 	}
 
