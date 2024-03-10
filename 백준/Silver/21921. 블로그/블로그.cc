@@ -1,11 +1,10 @@
 #include <iostream>
 #include <vector>
-#include<string>
-#include <algorithm>
-#include <map>
 using namespace std;
+#define FIO ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 int main() {
+	FIO;
 	int n, x;
 	vector<int> v;
 	pair<int, int> p = { 0,1 };	//max, cnt
