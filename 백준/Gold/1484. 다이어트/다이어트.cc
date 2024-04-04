@@ -19,12 +19,12 @@ void solve() {
     while (before <= cur) {
         int tmp;       
         tmp = pow(cur, 2) - pow(before, 2);        
-        if (cur > g) {
+        if (cur >= 100000) {
             break;
         }
         if (tmp == g) {
             result.push_back(cur);
-            cur++;
+            before++;
         }
         else if (tmp > g) {
             before++;
@@ -43,7 +43,7 @@ int main() {
 
     if (result.size() == 0) cout << -1;
     else {
-        for (int r : result) {            
+        for (int r : result) {
             cout << r << '\n';
         }
     }
