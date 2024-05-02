@@ -4,35 +4,24 @@
 
 using namespace std;
 
-vector<vector<int>> nodes;
 int visited[201] = {0, };
     
 
-void dfs(int x){
+void dfs(int x, vector<vector<int>>& computers){
     
-    for(int i=0;i<nodes[x].size();i++){
-        int next = nodes[x][i];
-        if(visited[next]) continue;
-        visited[next] = true;
-        dfs(next);
+    for(int i=0;i<computers[x].size();i++){        
+        if(computers[x][i] == 0 || x == i || visited[i]) continue;
+        visited[i] = true;
+        dfs(i, computers);
     }
 }
 
 int solution(int n, vector<vector<int>> computers) {
     int answer = 0;
     
-    nodes.resize(n+1, vector<int>());
-    for(int i=0;i<computers.size();i++){
-        vector<int> computer = computers[i];
-        for(int j=0;j<computer.size();j++){
-            if(i==j) continue;
-            if(computers[i][j]) nodes[i].push_back(j);
-        }
-    }
-    
     for(int i=0;i<n;i++){
         if(visited[i]) continue;
-        dfs(i);
+        dfs(i, computers);
         answer++;
     }
     
