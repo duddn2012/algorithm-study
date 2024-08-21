@@ -34,7 +34,7 @@ public class Solution {
 	
 	static int height, width, pass;
 	
-	static int[][] board;
+	static int[][] board, tempBoard;
 	
 	static int [] selectedMedicine;
 	static final int NONE = -1;
@@ -57,7 +57,7 @@ public class Solution {
 			result = Integer.MAX_VALUE;			
 			
 			board = new int[height+1][width+1];
-			
+			tempBoard = new int[height+1][width+1];
 			selectedMedicine = new int[height+1];
 			
 			Arrays.fill(selectedMedicine, NONE);
@@ -67,6 +67,10 @@ public class Solution {
 				for(int col = 1; col <= width; col++) {
 					board[row][col] = Integer.parseInt(st.nextToken());
 				}
+			}
+			
+			for(int row = 1; row <= height; row++) {
+				tempBoard[row] = board[row].clone();
 			}
 			
 			solve(1);
@@ -85,15 +89,12 @@ public class Solution {
 		if(elementIndex == height+1) {
 			checkPerformance();
 			return;
-		}
-		int[] tempRow = board[elementIndex].clone();	
+		}	
 		
 		if(checkPerformance()) {
 			return;			
 		}
-		
-		
-		
+						
 		selectedMedicine[elementIndex] = NONE;
 		solve(elementIndex+1);
 				
@@ -109,9 +110,9 @@ public class Solution {
 		}
 		solve(elementIndex+1);
 		
-
+		// 복원 로직
 		selectedMedicine[elementIndex] = NONE;
-		board[elementIndex] = tempRow;
+		board[elementIndex] = tempBoard[elementIndex].clone();
 	}
 
 	private static boolean checkPerformance() {
