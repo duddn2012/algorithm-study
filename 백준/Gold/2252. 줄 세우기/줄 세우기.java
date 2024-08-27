@@ -38,7 +38,6 @@ public class Main {
 
     static Deque<Integer> queue;
 
-    static List<Integer> result;
 
     public static void main(String[] args) throws NumberFormatException, IOException {
 
@@ -54,8 +53,7 @@ public class Main {
             edges[index] = new LinkedList<>();
         }
         indegrees = new int[V+1];
-        result = new LinkedList<>();
-        queue = new LinkedList<Integer>();
+        queue = new LinkedList<>();
 
 
         // 1. 각 노드마다 진입 차수를 계산한다.
