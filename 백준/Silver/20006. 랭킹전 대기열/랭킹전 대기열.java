@@ -86,7 +86,7 @@ public class Main {
 
             if(!insertToRooms(player)){
                 // 만약 못찾았다면 방 생성 후 입장 처리
-                Room room = new Room(player, player.level);
+                Room room = new Room(player);
                 rooms.add(room);
             }
         }
@@ -100,7 +100,7 @@ public class Main {
 
             // 첫 사용자와 레벨 차이 확인 후 입장 가능여부 체크
             if(player.level >= room.firstUserLevel -10 && player.level <= room.firstUserLevel + 10){
-                room.inGamePlayers.add(player);
+                room.insertPlayer(player);
 
                 // 방이 꽉 차면 시작 처리
                 if(room.inGamePlayers.size() == roomLimit){
@@ -133,17 +133,23 @@ public class Main {
         int firstUserLevel;
         boolean isStarted;
 
-        public Room(Player firstPlayer, int firstUserLevel) {
-            inGamePlayers = new PriorityQueue<>();
-            inGamePlayers.add(firstPlayer);
+        // 방에 사용자 추가 시
+        // 생성자와 같은 다른 곳에서 처리할 경우 실수할 여지가 있다.
+        public void insertPlayer(Player player){
+            inGamePlayers.add(player);
 
             if(inGamePlayers.size() == roomLimit){
                 isStarted = true;
             }else{
                 isStarted = false;
             }
+        }
 
-            this.firstUserLevel = firstUserLevel;
+        public Room(Player firstPlayer) {
+            inGamePlayers = new PriorityQueue<>();
+            insertPlayer(firstPlayer);
+
+            this.firstUserLevel = firstPlayer.level;
         }
     }
 }
